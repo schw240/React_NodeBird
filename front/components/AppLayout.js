@@ -53,7 +53,7 @@ const AppLayout = ({ children }) => {
                     <a href="https://www.zerocho.com" target="_blank" rel="noreferrer noopener">Made by Zerocho</a>
                 </Col>
             </Row>
-            {children}
+            {/* {children} */}
         </div>
     )
 }
