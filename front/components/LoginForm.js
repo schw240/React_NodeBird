@@ -3,6 +3,9 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { Form, Input, Button } from 'antd';
 import Link from 'next/Link';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import useInput from '../hooks/useInput';
+
 
 const ButtonWrapper = styled.div`
     margin-top: 10px;
@@ -14,18 +17,22 @@ const FormWrapper = styled(Form)`
 
 const LoginForm = ({ setIsLoggedIn }) => {
 
-    const [id, setId] = useState('');
-    const [password, setPassword] = useState('');
-
+    // LoginForm과 NicknameForm을 보면 이렇게 아이디와 패스워드같이 반복되는 값은 커스텀으로 만들어주기
+    // const [id, setId] = useState('');
     // 컴포넌트에 props로 넘겨주는 함수는 꼭 useCallback 사용해주기(최적화)
-    const onChangeId = useCallback((e) => {
-        setId(e.target.value);
-    }, []);
-
-    const onChangePassword = useCallback((e) => {
-        setPassword(e.target.value);
-    }, []);
-
+    // const onChangeId = useCallback((e) => {
+    //     setId(e.target.value);
+    // }, []);
+    
+    // const [password, setPassword] = useState('');
+    // const onChangePassword = useCallback((e) => {
+        //     setPassword(e.target.value);
+        // }, []);
+        
+    // 커스텀 훅 사용
+    const [id, onChangeId] = useInput('');
+    const [password, onChangePassword] = useInput('');
+    
     const style = useMemo(() => ({ marginTop: 10 }), []);
 
 
@@ -76,5 +83,9 @@ const LoginForm = ({ setIsLoggedIn }) => {
         </FormWrapper>
     );
 }
+
+LoginForm.propTypes = {
+    setIsLoggedIn: PropTypes.func.isRequired,
+};
 
 export default LoginForm;
